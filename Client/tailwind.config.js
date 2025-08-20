@@ -7,6 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        aguafina: ["'Aguafina Script'", "cursive"],
         mozilla: ['"Mozilla Headline"', 'sans-serif']
       }
     },

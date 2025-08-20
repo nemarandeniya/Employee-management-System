@@ -7,6 +7,9 @@ import RoleBasedRoutes from './Utils/RoleBasedRoutes'
 import AdminSummery from './Components/Dashboard/AdminSummery'
 import DepartmentList from './Components/Departments/departmentList'
 import AddDepartment from './Components/Departments/AddDepartment'
+import EditDepartment from './Components/Departments/EditDepartment'
+import EmployeeList from './Components/Employee/EmployeeList'
+import EmployeeAdd from './Components/Employee/EmployeeAdd'
 
 function App() {
 
@@ -26,6 +29,10 @@ function App() {
           <Route index element={<AdminSummery />} />
           <Route path='/admin-dashboard/departments' element={<DepartmentList />}> </Route>
           <Route path='/admin-dashboard/add-department' element={<AddDepartment />}> </Route>
+          <Route path='/admin-dashboard/department/:id' element={<EditDepartment />}> </Route>
+
+          <Route path='/admin-dashboard/employees' element={<EmployeeList />}> </Route>
+          <Route path='/admin-dashboard/add-employee' element={<EmployeeAdd />}> </Route>
         </Route>
         <Route path='/employee-dashboard' element={<EmployeeDashboard />}> </Route>
       </Routes>
