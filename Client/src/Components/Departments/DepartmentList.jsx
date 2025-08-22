@@ -16,6 +16,7 @@ const DepartmentList = () => {
         const data = departments.filter(dep => dep._id !== id)
         setDepartments(data)
     }
+
     useEffect(() => {
         const getDepartments = async () => {
             setDepLoading(true)

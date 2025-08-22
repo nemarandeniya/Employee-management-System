@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const EmployeeAdd = () => {
     const [departments, setDepartments] = useState([])
     const [formData, setFormData] = useState({})
-    const navigate = useNavigate
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchDepartments = async () => {
@@ -45,11 +45,14 @@ const EmployeeAdd = () => {
                 }
             })
             if (response.data.success) {
+                alert("add successfully")
                 navigate("/admin-dashboard/employees")
             }
         } catch (error) {
             if (error.response && !error.response.data.success) {
                 alert(error.response.data.error)
+                console.log(error);
+
             }
         }
     }
@@ -81,16 +84,16 @@ const EmployeeAdd = () => {
                 <div className="flex gap-2">
                     <div className='mb-4 w-1/2'>
                         <label htmlFor='gender' className='text-sm font-medium text-gray-700'>Gender :</label>
-                        <select name='gender' className='mt-1  w-full p-2 border border-gray-300 rounded-md' onChange={handleChange}>
-                            <option value="" className="text-gray-400" disabled selected>Select Gender</option>
+                        <select name='gender' className='mt-1  w-full p-2 border border-gray-300 rounded-md' onChange={handleChange} defaultValue="">
+                            <option value="" className="text-gray-400" disabled>Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
                     </div>
                     <div className='mb-4 w-1/2'>
                         <label htmlFor='status' className='text-sm font-medium text-gray-700'>Marital Status :</label>
-                        <select name='status' onChange={handleChange} className='mt-1  w-full p-2 border border-gray-300 rounded-md'>
-                            <option value="" className="text-gray-400" disabled selected>Select Status</option>
+                        <select name='status' onChange={handleChange} className='mt-1  w-full p-2 border border-gray-300 rounded-md' defaultValue="" >
+                            <option value="" className="text-gray-400" disabled >Select Status</option>
                             <option value="single">Single</option>
                             <option value="married">Married</option>
                         </select>
@@ -103,8 +106,8 @@ const EmployeeAdd = () => {
                     </div>
                     <div className='mb-4 w-1/2'>
                         <label htmlFor='department' className='text-sm font-medium text-gray-700'>Department :</label>
-                        <select name='department' className='mt-1  w-full p-2 border border-gray-300 rounded-md' onChange={handleChange}>
-                            <option value="" className="text-gray-400" disabled selected>Select Department</option>
+                        <select name='department' className='mt-1  w-full p-2 border border-gray-300 rounded-md' onChange={handleChange} defaultValue="">
+                            <option value="" className="text-gray-400" disabled>Select Department</option>
                             {departments.map(dep => (
                                 <option key={dep._id} value={dep._id}>{dep.dep_name}</option>
                             ))}
@@ -124,8 +127,8 @@ const EmployeeAdd = () => {
                 <div className="flex gap-2">
                     <div className='mb-4 w-1/2'>
                         <label htmlFor='role' className='text-sm font-medium text-gray-700'>Role :</label>
-                        <select name='role' onChange={handleChange} className='mt-1  w-full p-2 border border-gray-300 rounded-md'>
-                            <option value="" className="text-gray-400" disabled selected>Select Role</option>
+                        <select name='role' onChange={handleChange} className='mt-1  w-full p-2 border border-gray-300 rounded-md' defaultValue="">
+                            <option value="" className="text-gray-400" disabled>Select Role</option>
                             <option value="admin">Admin</option>
                             <option value="employee">Employee</option>
                         </select>

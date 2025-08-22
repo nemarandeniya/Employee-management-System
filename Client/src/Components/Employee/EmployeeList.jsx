@@ -1,9 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { FaPlus } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { columns, EmployeeActionBtns } from '../../Utils/EmployeeHelper'
+import axios from 'axios'
 
 const EmployeeList = () => {
+
+    const [employees, setEmployees] = useState([])
+    const [empLoading, setEmpLoading] = useState(false)
+
+    useEffect(() => {
+        const getEmployees = async () => {
+            setEmpLoading(true)
+            try {
+                const response = await axios.get('http://localhost:3000/api/employee', {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    }
+                })
+                console.log(response);
+
+                if (response.data.success) {
+                    let sno = 1;
+                    const data = await response.data.employees.map((emp) => (
+                        {
+                            _id: emp._id,
+                            sno: sno++,
+                            dep_name: emp.department.dep_name,
+                            name: emp.userId.name,
+                            dob: new Date(emp.dob).toLocaleDateString(),
+                            profileImage: <img width={60} className='rounded-full' src={`http://localhost:3000/${emp.userId.profileImage}`} />,
+                            action: (<EmployeeActionBtns Id={emp._id} />),
+                        }
+                    ))
+                    setEmployees(data)
+                    // setFfilteredDepartments(data)
+                }
+            } catch (error) {
+                if (error.response && !error.response.data.success) {
+                    alert(error.response.data.error)
+                }
+            } finally {
+                setEmpLoading(false)
+            }
+        }
+        getEmployees()
+    }, [])
+
+
     return (
         <div>
             <div className='text-center mb-[50px] mt-3'>
@@ -16,7 +61,7 @@ const EmployeeList = () => {
                 </Link>
             </div>
             <div className='mt-[40px] me-4 ms-4'>
-                <DataTable pagination />
+                <DataTable columns={columns} data={employees} pagination />
             </div>
         </div>
     )
